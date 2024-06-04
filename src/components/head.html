@@ -1,0 +1,11 @@
+{{!if文でテキストの出し分け}}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {{#if isHome}}
+  <title>メインページ</title>
+  {{else}}
+  <title>listページ</title>
+  {{/if}}
+  <link rel="stylesheet" href="./scss/style.scss" />
+</head>

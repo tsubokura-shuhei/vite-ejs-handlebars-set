@@ -13,6 +13,7 @@ const pageData = {
   "/list.html": {
     isHome: false,
     title: "リストページ",
+    items: ["red", "green", "yellow"],
   },
 };
 
