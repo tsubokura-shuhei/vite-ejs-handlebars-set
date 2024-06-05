@@ -1,97 +1,175 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+//************************************************************
+// ブレイクポイント
+//************************************************************
+$pc: 769px; // PC
+$tab: 768px; // タブレット
+$sp: 480px; // スマホ
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@mixin pc {
+  @media (min-width: ($pc)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+//（参考ページ）https://macoblog.com/sass_media_query/
+
+//************************************************************
+// px->vw変換
+//************************************************************
+
+@function vw($size, $viewport: 375) {
+  $rate: calc(100 / $viewport);
+  @return $rate * $size * 1vw;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+// (例) iPhone
+// border: 1px solid #ff0000;
+// ↓
+// border: vw(1) solid #ff0000;
+
+// (例) Android基準
+// border: 1px solid #ff0000;
+// ↓
+// border: vw(1, 360) solid #ff0000;
+
+//（参考ページ）https://qiita.com/DaisukeNishi/items/36bf3b0e9bc03d892ccb
+
+//************************************************************
+// PC,タブレット,スマホ
+//************************************************************
+
+.container {
+  background-color: rgb(166, 255, 106);
+  p {
+    color: rgb(166, 255, 106);
+    transform: translateX(100px);
+  }
+  p:hover {
+    color: rgb(166, 255, 106);
+    transform: translateX(0px);
+  }
+}
+//pタグ内をブレイクポイントで切り分け
+p {
+  //PC
+  @include pc {
+    color: rgb(166, 255, 106);
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+    span {
+      color: red;
+    }
+  }
+
+  //タブレット
+  @include tab {
+    color: rgb(255, 151, 106);
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: vw(16);
+  }
+
+  //スマホ
+  @include sp {
+    color: rgb(118, 106, 255);
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: vw(16);
+  }
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+//px->vwへ変換している記述
+.test {
+  width: 200px;
+  height: 200px;
+  padding: vw(3) vw(2) vw(6) vw(4);
+  background-color: rgb(127, 146, 255);
+  .test2 {
+    width: 100px;
+    height: 100px;
+    margin: vw(6) vw(8) vw(10) vw(14);
+    background-color: rgb(153, 255, 127);
+  }
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+//************************************************************
+// BEM記述
+//************************************************************
+
+@mixin btn {
   text-align: center;
+  margin: 20px 40px;
+  padding: 20px;
+  color: #fff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+@mixin line {
+  text-align: center;
+  color: rgb(255, 123, 0);
+  padding: 20px 60px;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.main {
+  background-color: #c2ffea;
+  padding: 100px;
+  &__textArea {
+    text-align: center;
+    margin: 40px;
+    padding: 40px;
+    background-color: #fff;
   }
-  a:hover {
-    color: #747bff;
+  &__btn {
+    &--success {
+      @include btn;
+      background-color: #0a7bf5;
+    }
+    &--faile {
+      @include btn;
+      background-color: #808080;
+    }
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.sample {
+  margin-top: 40px;
+  background-color: #f6e1c1;
+  padding: 100px;
+  &__topArea {
+    text-align: center;
+    background-color: rgb(123, 255, 0);
+    padding: 20px 100px;
+    p {
+      color: #222222;
+    }
+  }
+  &__line {
+    &--mainArea {
+      text-align: center;
+      background-color: #0a7bf5;
+      padding: 20px 100px;
+      p {
+        @include line;
+      }
+    }
+    &--bottomArea {
+      text-align: center;
+      background-color: aqua;
+      padding: 20px 100px;
+      p {
+        @include line;
+      }
+    }
   }
 }
 
@@ -101,16 +179,4 @@ button:focus-visible {
   content: "";
   background-size: contain;
   background-image: url(../../assets/images/sample.jpg);
-}
-
-.text-color {
-  .red {
-    color: red;
-  }
-  .green {
-    color: green;
-  }
-  .yellow {
-    color: yellow;
-  }
 }
