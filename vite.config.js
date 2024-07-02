@@ -1,21 +1,12 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import handlebars from "vite-plugin-handlebars";
+import data from "./src/js/json/setting.json" assert { type: "json" };
 
 // ************************************ HTMLファイル(複数ページ設定) ************************************
 
 //HTML上で出し分けたい各ページごとの情報を設定
-const pageData = {
-  "/index.html": {
-    isHome: true,
-    title: "メインページ",
-  },
-  "/list.html": {
-    isHome: false,
-    title: "リストページ",
-    items: ["red", "green", "yellow"],
-  },
-};
+const pageData = data.setting[0];
 
 //htmlの複数出力を自動化する記述
 import fs from "fs";

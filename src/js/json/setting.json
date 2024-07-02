@@ -1,0 +1,17 @@
+{
+  "setting": [
+    {
+      "/index.html": { "isHome": true, "title": "メインページ" },
+      "/list.html": {
+        "isHome": false,
+        "title": "リストページ",
+        "items": ["red", "green", "yellow", "purple"]
+      },
+      "/about/index.html": {
+        "isHome": false,
+        "title": "Aboutページ",
+        "items": ["りんご", "メロン", "バナナ"]
+      }
+    }
+  ]
+}
