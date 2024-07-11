@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 import handlebars from "vite-plugin-handlebars";
 import data from "./src/js/json/setting.json" assert { type: "json" };
+import { createHtmlPlugin } from "vite-plugin-html";
 
 // ************************************ HTMLファイル(複数ページ設定) ************************************
 
@@ -111,6 +112,9 @@ export default defineConfig({
   // *******↓ Network設定を有効化してIPアドレスを発行する ↓*******
   server: {
     host: true, //IPアドレスを有効化
+    watch: {
+      usePolling: true,
+    },
   },
   // *******↑ Network設定を有効化してIPアドレスを発行する ↑*******
   base: "./",
@@ -150,6 +154,9 @@ export default defineConfig({
       context(pagePath) {
         return pageData[pagePath];
       },
+    }),
+    createHtmlPlugin({
+      minify: false, //HTMLコード改行なし：true
     }),
   ],
 });
