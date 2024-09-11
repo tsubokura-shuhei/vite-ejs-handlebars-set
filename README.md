@@ -18,3 +18,9 @@
 
     【詳細な記事は以下を参考】
     https://coding-memo.work/development/1274/
+
+
+    【補足について】
+    ・main.jsのファイルのみ①の階層に配置すること、main.js以外のjsファイルは②に配置する
+    ① /src/js/  ← main.jsを配置する
+    ② /src/public/assets/js/　← main.js以外のファイルを配置する（common.js、app.jsなど）
