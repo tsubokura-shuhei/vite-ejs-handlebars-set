@@ -128,12 +128,15 @@ export default defineConfig({
         manualChunks: (id) => {
           //CSSを分けて分けて書き出し
           const baseName = path.basename(id);
-          let fileType = baseName.split(".")[1];
+          let textBox = baseName.split(".");
+          let fileType = baseName.split(".")[textBox.length - 1];
+
+          console.log(fileType);
 
           if (fileType === "scss") {
-            if (id.includes("style.scss")) return "style";
-            if (id.includes("reset.scss")) return "reset";
-            if (id.includes("common.scss")) return "common";
+            if (id.includes("reset.scss")) return `reset.css`;
+            if (id.includes("common.scss")) return `common.css`;
+            if (id.includes("style.scss")) return `style.css`;
           }
         },
         //ファイルを圧縮して書き出す際には「assetFileNames」内で記述すること
